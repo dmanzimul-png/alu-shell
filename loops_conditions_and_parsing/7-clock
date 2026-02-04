@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Displays time from 0–12 hours and 1–59 minutes
 
 hour=0
 
