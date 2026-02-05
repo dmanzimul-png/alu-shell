@@ -1,19 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
-
-if [ -e school ]; then
-    echo "school file exists"
-
-    if [ -s school ]; then
-        echo "school file is not empty"
-    else
-        echo "school file is empty"
-    fi
-
-    if [ -f school ]; then
-        echo "school is a regular file"
-    fi
+if [ ! -e school ]; then
+    echo "school doesn’t exist"
 else
-    echo "school file does not exist"
+    if [ -f school ]; then
+        if [ -s school ]; then
+            echo "File exist and is a regular file"
+        else
+            echo "school exists but empty"
+        fi
+    else
+        echo "school exists but it’s a directory"
+    fi
 fi
 
