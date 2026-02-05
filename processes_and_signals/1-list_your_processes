@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #
 
-ps -eo uid,pid,ppid,cmd --forest
+ps -eo uid,pid,ppid,cmd --forest | awk '{print $0}'
 
