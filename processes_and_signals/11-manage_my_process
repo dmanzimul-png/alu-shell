@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# 11-manage_my_process
+# Init-style script to manage manage_my_process
+
+PID_FILE="/var/run/my_process.pid"
+DAEMON="./manage_my_process"
+
+case "$1" in
+    start)
+        $DAEMON &              # start process in background
+        echo $! > "$PID_FILE"  # save PID
+        echo "manage_my_process started"
+        ;;
+    stop)
+        if [ -f "$PID_FILE" ]; then
+            kill $(cat "$PID_FILE") 2>/dev/null
+            rm -f "$PID_FILE"
+            echo "manage_my_process stopped"
+        else
+            echo "manage_my_process not running"
+        fi
+        ;;
+    restart)
+        if [ -f "$PID_FILE" ]; then
+            kill $(cat "$PID_FILE") 2>/dev/null
+            rm -f "$PID_FILE"
+        fi
+        $DAEMON &              # start process in background
+        echo $! > "$PID_FILE"  # save PID
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
