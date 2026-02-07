@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# 10-process_and_pid_file
+# Creates a PID file, handles signals, and prints messages
+
+# Create PID file
+echo $$ > /var/run/myscript.pid
+
+# Trap SIGTERM → print "I hate the kill command"
+trap 'echo "I hate the kill command"' SIGTERM
+
+# Trap SIGINT (Ctrl+C) → print "Y U no love me?!"
+trap 'echo "Y U no love me?! "' SIGINT
+
+# Trap SIGQUIT or SIGTERM → delete PID file and exit
+trap 'rm -f /var/run/myscript.pid; exit' SIGQUIT SIGTERM
+
+# Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
+
