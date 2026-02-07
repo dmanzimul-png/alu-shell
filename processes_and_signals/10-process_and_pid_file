@@ -6,14 +6,14 @@
 # Create PID file
 echo $$ > /var/run/myscript.pid
 
-# Trap SIGTERM → print "I hate the kill command"
-trap 'echo "I hate the kill command"' SIGTERM
-
-# Trap SIGINT (Ctrl+C) → print "Y U no love me?!"
+# Trap SIGINT (Ctrl+C)
 trap 'echo "Y U no love me?! "' SIGINT
 
-# Trap SIGQUIT or SIGTERM → delete PID file and exit
-trap 'rm -f /var/run/myscript.pid; exit' SIGQUIT SIGTERM
+# Trap SIGTERM → print message AND delete PID file & exit
+trap 'echo "I hate the kill command"; rm -f /var/run/myscript.pid; exit' SIGTERM
+
+# Trap SIGQUIT → delete PID file & exit
+trap 'rm -f /var/run/myscript.pid; exit' SIGQUIT
 
 # Infinite loop
 while true; do
